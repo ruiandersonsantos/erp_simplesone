@@ -5,12 +5,14 @@ import { AdminComponent } from './../admin/admin.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import {CfopComponent} from '../cfop/cfop.component';
 
 @NgModule({
   imports: [
     RouterModule.forRoot([
       { path: '', redirectTo: 'starter', pathMatch: 'full' },
       { path: 'starter', component: StarterComponent },
+      { path: 'cfop', component: CfopComponent },
     ])
   ],
   declarations: [],

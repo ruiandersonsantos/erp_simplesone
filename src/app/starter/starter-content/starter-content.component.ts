@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-// Variable in assets/js/scripts.js file
+
+
+
 declare var AdminLTE: any;
+
 
 @Component({
   selector: 'app-starter-content',
@@ -9,11 +12,18 @@ declare var AdminLTE: any;
 })
 export class StarterContentComponent implements OnInit {
 
-  constructor() { }
+  options: Object;
+
+  constructor() {
+
+  }
 
   ngOnInit() {
-    // Update the AdminLTE layouts
+
+    //  Update the AdminLTE layouts
     AdminLTE.init();
+
   }
+
 
 }

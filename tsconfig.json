@@ -8,10 +8,12 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es5",
+    "types": [ "node" ],
     "typeRoots": [
       "node_modules/@types",
       "../node_modules/moment"
     ],
+
     "lib": [
       "es2016",
       "dom"
