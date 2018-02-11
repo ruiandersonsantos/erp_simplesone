@@ -1,6 +1,6 @@
 import {Cadastro_b} from "../interfaces/cadastro_b.interface";
 import {InformacoesTelaModel} from "./informacoes-tela.model";
-import {EstadoBotoesModel} from "./estado-botoes.model";
+
 
 const NOVO: string = 'NOVO'
 const EDITAR: string = 'EDITAR'
@@ -11,13 +11,14 @@ const EXCLUIR: string = 'EXCLUIR'
 export class CadastroBModel implements Cadastro_b{
 
 
+
     private acaonovo: string = NOVO;
     private acaoeditar: string = EDITAR;
     private acaosalvar: string = SALVAR;
     private acaocancelar: string = CANCELAR;
     private acaoexcluir: string = EXCLUIR;
 
-    public estadoBotoes: EstadoBotoesModel;
+
     public informacoesTela: InformacoesTelaModel;
 
     public novo() {
