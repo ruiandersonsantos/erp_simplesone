@@ -18,5 +18,7 @@ export class InformacoesTelaModel{
 
     public telaEstaEmEdicao:boolean;
 
+    public telaEstaEmExclusao:boolean;
+
 
 }

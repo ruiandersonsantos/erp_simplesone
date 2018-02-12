@@ -1,8 +1,8 @@
-<div class="modal fade" id="modal-cadastro-b">
+<div class="modal fade" id="modal-cadastro-b" data-backdrop="static">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header" style="background-color: #d5dddc">
-        <button style="color: #dc0609" type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button style="color: #dc0609" type="button" (click)="resetarPropriedades()" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span></button>
 
         <h4 class="modal-title"><i [class]="cadastro.informacoesTela.icone" style="color: #2578ff"></i> {{ cadastro.informacoesTela.titulo }}</h4>
@@ -11,22 +11,50 @@
       <div class="modal-body">
         <ng-content></ng-content>
       </div>
-      <div class="modal-footer">
+
+      <div class="modal-footer" *ngIf="!cadastro.informacoesTela.telaEstaEmExclusao">
 
         <div *ngIf="cadastro.informacoesTela.telaEstaEmEdicao">
-          <button type="button" class="btn btn-primary" (click)="clicouBotaoSalvar()">
+          <button type="button" class="btn btn-primary" (click)="salvar()">
             <i class="fa fa-save"></i> &nbsp; Salvar
           </button>
         </div>
 
         <div *ngIf="!cadastro.informacoesTela.telaEstaEmEdicao">
-          <button disabled type="button" class="btn btn-primary" (click)="clicouBotaoSalvar()">
-            <i class="fa fa-save"></i> &nbsp; Salvar
+          <button disabled type="button" class="btn btn-success" >
+            <i class="fa fa-eye"></i> &nbsp;Visualisando
           </button>
         </div>
 
+
       </div>
+
+
+    <div class="modal-footer" *ngIf="cadastro.informacoesTela.telaEstaEmExclusao">
+
+
+      <div class="row">
+
+        <div class="col-md-4">
+          <h4>
+            <span class="label label-warning">Deseja excluir registro do sistema ?</span>
+          </h4>
+        </div>
+
+        <div class="col-md-8">
+
+          <button type="button" class="btn btn-danger" (click)="excluir()" data-dismiss="modal">
+            <i class="fa fa-trash"></i> &nbsp; Excluir
+          </button>
+        </div>
+
+
+      </div>
+
     </div>
+  </div>
+
+
     <!-- /.modal-content -->
   </div>
   <!-- /.modal-dialog -->

@@ -17,7 +17,7 @@ export class CadastroBComponent implements OnInit {
 
     @Input() public cadastro: CadastroBModel;
 
-    @Output() public clicouBTN: EventEmitter<string> = new EventEmitter();
+    @Output() public btnSalvar: EventEmitter<string> = new EventEmitter();
 
 
 
@@ -27,13 +27,29 @@ export class CadastroBComponent implements OnInit {
 
     }
 
+    public resetarPropriedades(){
+        this.cadastro.informacoesTela.telaEstaEmEdicao = false
+        this.cadastro.informacoesTela.telaEstaEmExclusao = false
+    }
 
 
-    public clicouBotaoSalvar(){
+
+    public salvar(){
 
         this.cadastro.informacoesTela.telaEstaEmEdicao = true
 
-        this.clicouBTN.emit(this.cadastro.getClicouBotaoSalvar())
+        this.btnSalvar.emit(this.cadastro.getClicouBotaoSalvar())
+
+    }
+
+
+    public excluir(){
+
+        this.cadastro.informacoesTela.telaEstaEmExclusao = true
+
+        this.btnSalvar.emit(this.cadastro.getClicouBotaoExcluir())
+
+        this.cadastro.informacoesTela.telaEstaEmExclusao = false
 
     }
 

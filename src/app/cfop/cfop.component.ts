@@ -40,6 +40,8 @@ export class CfopComponent implements OnInit, OnDestroy {
 
     public listagemCfop: Array<CfopModel> = []
 
+    public somenteLeitura: boolean = false;
+
     constructor(private srvConfigTables: ConfigTablesService, private cfopservice: CfopService) {
 
     }
@@ -61,6 +63,9 @@ export class CfopComponent implements OnInit, OnDestroy {
         this.preencheInformacoesDaTela();
 
         this.listadetiponatela = this.objCfop.listaDetipo;
+
+        this.cadastroCFOP.informacoesTela.telaEstaEmEdicao = false
+        this.cadastroCFOP.informacoesTela.telaEstaEmExclusao = false
     }
 
 
@@ -70,8 +75,7 @@ export class CfopComponent implements OnInit, OnDestroy {
         this.objCfop = new CfopModel();
 
         this.cadastroCFOP.informacoesTela.telaEstaEmEdicao = true
-
-
+        this.somenteLeitura = false
 
     }
 
@@ -81,31 +85,68 @@ export class CfopComponent implements OnInit, OnDestroy {
 
         this.srvConfigTables.removeDataTable('#example1')
 
-        this.cfopservice.salvar(this.objCfop).subscribe( resposta =>{
-            this.preencheObjetoComResposta(resposta);
-            this.carregarTabelaGrid();
-        })
+        switch (evento){
+
+            case this.cadastroCFOP.getClicouBotaoSalvar():{
+                this.cfopservice.salvar(this.objCfop).subscribe( resposta =>{
+
+                    if(this.objCfop.id){
+                        this.manterObjetos(resposta);
+                    }else{
+                        this.limparObjetos();
+                    }
+
+                    this.carregarTabelaGrid();
+                })
+                break;
+            }
+
+            case this.cadastroCFOP.getClicouBotaoExcluir():{
+                this.cfopservice.deletar(this.objCfop).subscribe( resposta =>{
+                    this.objCfop = new CfopModel();
+                    this.carregarTabelaGrid();
+                })
+
+                break;
+            }
+
+        }
+
+
 
 
     }
 
-    private preencheObjetoComResposta(resposta) {
-        this.objCfop = resposta
+    private manterObjetos(resposta) {
+        this.objCfop = resposta;
+        this.objCfop.listaDetipo = this.listadetiponatela
+    }
+
+    private limparObjetos() {
+        this.objCfop = new CfopModel();
         this.objCfop.listaDetipo = this.listadetiponatela
     }
 
     public clicouLinha (cfop,acao){
 
         this.cadastroCFOP.informacoesTela.telaEstaEmEdicao = false
+        this.somenteLeitura = true
 
         if(acao === 'editar'){
             this.cadastroCFOP.informacoesTela.telaEstaEmEdicao = true
+            this.somenteLeitura = false
+        }
+
+        if(acao === 'excluir'){
+            this.cadastroCFOP.informacoesTela.telaEstaEmExclusao = true
+            this.somenteLeitura = true
         }
 
         this.cfopservice.buscarPorId(cfop).subscribe(resposta =>{
 
             this.objCfop = resposta
             this.objCfop.listaDetipo = this.listadetiponatela
+
 
 
         })
